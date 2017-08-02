@@ -16,7 +16,7 @@
     var database = firebase.database();
 
     // Initial Values
-    var TrainName = "";
+    var trainName = "";
     var destination = "";
     var firstArrival = "";
     var arrivalFrequency = "";
@@ -29,13 +29,13 @@
       // YOUR TASK!!!
       // Code in the logic for storing and retrieving the most recent user.
       // Don't forget to provide initial data to your Firebase database.
-      TrainName = $("#name-input").val().trim();
+      trainName = $("#name-input").val().trim();
       destination = $("#destination-input").val().trim();
       firstArrival = $("#trainTime-input").val().trim();
       arrivalFrequency = $("#frequency-input").val().trim();
 
       database.ref().set({
-        TrainName: TrainName,
+        trainName: trainName,
         destination: destination,
         firstArrival: firstArrival,
         arrivalFrequency: arrivalFrequency
@@ -48,18 +48,18 @@
 
       // Log everything that's coming out of snapshot
       console.log(snapshot.val());
-      console.log(snapshot.val().TrainName);
+      console.log(snapshot.val().trainName);
       console.log(snapshot.val().destination);
       console.log(snapshot.val().firstArrival);
       console.log(snapshot.val().arrivalFrequency);
 
       // Change the HTML to reflect
-      $("#name-display").text(snapshot.val().TrainName);
+      $("#name-display").text(snapshot.val().trainName);
       $("#destination-display").text(snapshot.val().destination);
       $("#arrival-display").text(snapshot.val().firstArrival);
       $("#frequency-display").text(snapshot.val().arrivalFrequency);
 
-      
+
 
       // Handle the errors
     }, function(errorObject) {
