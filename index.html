@@ -24,8 +24,22 @@
 			    <h3 class="panel-title">Current Train Schedule</h3>
 			  </div>
 			  <div class="panel-body board-display">
-			  	<div class="row">	    
-					<table style="width:100%">
+			  	<div class="row">
+			  		<table class="table table-hover" id='train-table'>
+						<thead>
+							<tr>
+								<th>Train Name</th>
+								<th>Destination</th>
+								<th>Frequency (Mins)</th>
+								<th>Months Worked</th>
+								<th>Next Arriaval</th>
+								<th>Minutes Away</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>						
+					</table>	    
+					<!-- <table id="train-table" style="width:100%">
 					  <tr>
 					    <th>Train Name</th>
 					    <th>Destination</th> 
@@ -40,7 +54,7 @@
 					    <td id="next-arrival-display">50</td>
 					    <td id="minutes-until-display">50</td>
 					  </tr>					  
-					</table>			    
+					</table> -->			    
 			    </div>
 			  </div>
 			</div>
@@ -72,7 +86,7 @@
 							<label for="comment-input">Frequency (min)</label>
 							<input class="form-control" id="frequency-input" type="text">
 						</div>
-						<button class="btn btn-info" id="add-train" type="submit">Submit</button>
+						<button class="btn btn-info" id="add-train-btn" type="submit">Submit</button>
 					</form>
 				</div>
 			</div>

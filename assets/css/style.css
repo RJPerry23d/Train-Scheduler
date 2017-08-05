@@ -10,6 +10,12 @@ body {
     background-color: silver;
     border-color: #ddd;
 }
+
+.form-group input {
+	color: green;
+	background-color: black;
+	border: darkgray 2px solid;
+}
 .jumbotron.board-display {
     color: green;
     background-color: black;
@@ -33,4 +39,8 @@ body {
 }
 table {
 	margin: 10px;
+}
+.panel-body {
+    padding: 15px;
+    margin-right: 20px;
 }
