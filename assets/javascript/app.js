@@ -16,13 +16,13 @@
 
     var database = firebase.database();
 
-    // Initial Values
-    var initTrainName = "";
-    var initDestination = "";
-    var initFirstArrival = "";
-    var initArrivalFrequency = "";
-    var initTMinutesTillTrain = "";
-    var initNextTr = "";
+                                                        // // Initial Values
+                                                        // var initTrainName = "";
+                                                        // var initDestination = "";
+                                                        // var initFirstArrival = "";
+                                                        // var initArrivalFrequency = "";
+                                                        // var initTMinutesTillTrain = "";
+                                                        // var initNextTr = "";
 
     // Capture Button Click
     $("#add-train-btn").on("click", function(event) {
@@ -36,85 +36,86 @@
       destination = $("#destination-input").val().trim();
       firstArrival = $("#trainTime-input").val().trim();
       arrivalFrequency = $("#frequency-input").val().trim();
-      nextTr = $("#next-arrival-display").val();
-      tMinutesTillTrain = $("#minutes-until-display").val();
+      // nextTr = $("#next-arrival-display").val();
+      // tMinutesTillTrain = $("#minutes-until-display").val();
 
-      database.ref().set({
+      var newTrain = {
         trainName: trainName,
         destination: destination,
         firstArrival: firstArrival,
-        arrivalFrequency: arrivalFrequency,
-        nextTr: nextTr,
-        tMinutesTillTrain: tMinutesTillTrain
-      });
+        arrivalFrequency: arrivalFrequency        
+      };
+
+      database.ref().push(newTrain);
+      console.log(newTrain.trainName);
+      console.log(newTrain.destination);
+      console.log(newTrain.firstArrival);
+      console.log(newTrain.arrivalFrequency);
+
+      //alert
+      alert("Train added");
+      //clear
+      $("#name-input").val("");
+      $("#destination-input").val("");
+      $("#trainTime-input").val("");
+      $("#frequency-input").val("");
+    });
     
-// Assumptions
 
-// var tFrequency = arrivalFrequency;
-
-// // Time is 3:30 AM
-// var firstTime = firstArrival;
-
-// // First Time (pushed back 1 year to make sure it comes before current time)
-// var firstTimeConverted = moment(firstTime, "hh:mm").subtract(1, "years");
-// console.log(firstTimeConverted);
-
-// // Current Time
-// var currentTime = moment();
-// console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
-
-// // Difference between the times
-// var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-// console.log("DIFFERENCE IN TIME: " + diffTime);
-
-// // Time apart (remainder)
-// var tRemainder = diffTime % tFrequency;
-// console.log(tRemainder);
-
-// // Minute Until Train
-// var tMinutesTillTrain = tFrequency - tRemainder;
-// console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
-// return(tMinutesTillTrain);
-
-// // Next Train
-// var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-// console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
-// nextTrain =nextTr;
-// console.log(nextTr);
 
    
 
-    });
+   
 
     // Firebase watcher + initial loader HINT: .on("value")
-    // database.ref().on("value", function(snapshot) {
-      database.ref().on("child_added", function(snapshot, prevChildKey) {
-    	var trainName;
-    	var destination;
-    	var firstArrival;
-    	var arrivalFrequency;
-      var tMinutesTillTrain;
-      var nextTr;
+    database.ref().on("child_added", function(childSnapshot,prevChildKey) {
 
-      // Log everything that's coming out of snapshot
-      console.log(snapshot.val());
-      if (snapshot.val() == null) {
-      	trainName = initTrainName;
-      	destination = initDestination;
-      	firstArrival = initFirstArrival;
-      	arrivalFrequency = initArrivalFrequency;
-        tMinutesTillTrain = initTMinutesTillTrain;
-        nextTr = initNextTrain;
-      }
-      else {
-      	trainName = snapshot.val().trainName;
-      	destination = snapshot.val().destination;
-      	firstArrival = snapshot.val().firstArrival;
-      	arrivalFrequency = snapshot.val().arrivalFrequency;
-        tMinutesTillTrain = snapshot.val().tMinutesTillTrain;
-        nextTr = snapshot.val().nextTrain; 
+      console.log(childSnapshot.val());
 
-      }
+      var trainName = childSnapshot.val().trainName;
+      var destination = childSnapshot.val().destination;
+      var firstArrival = childSnapshot.val().firstArrival;
+      var arrivalFrequency = childSnapshot.val().arrivalFrequency;
+
+      console.log(trainName);
+      console.log(destination);
+      console.log(firstArrival);
+      console.log(arrivalFrequency);
+      
+
+    // Assumptions
+
+var tFrequency = arrivalFrequency;
+
+// Time is 3:30 AM
+var firstTime = firstArrival;
+
+// First Time (pushed back 1 year to make sure it comes before current time)
+var firstTimeConverted = moment(firstTime, "hh:mm").subtract(1, "years");
+console.log(firstTimeConverted);
+
+// Current Time
+var currentTime = moment();
+console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+
+// Difference between the times
+var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+console.log("DIFFERENCE IN TIME: " + diffTime);
+
+// Time apart (remainder)
+var tRemainder = diffTime % tFrequency;
+console.log(tRemainder);
+
+// Minute Until Train
+var tMinutesTillTrain = tFrequency - tRemainder;
+console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+
+// Next Train
+var nextTrain = moment().add(tMinutesTillTrain, "minutes").format("hh:mm");
+console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+
+
 
       
       // console.log(snapshot.val().trainName);
@@ -131,16 +132,14 @@
       // console.log(nextTr);
       // $("#minutes-until-display").text(tMinutesTillTrain);
       // console.log(tMinutesTillTrain);
-      $("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" +
-  firstArrival + "</td><td>" + arrivalFrequency + "</td><td>" + tMinutesTillTrain + "</td><td>" + nextTr + "</td></tr>");
+      $("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + destination + 
+                                      "</td><td>" + arrivalFrequency + "</td><td>" + nextTrain + 
+                                      "</td><td>" + tMinutesTillTrain + "</td></tr>");
 
 
 
       // Handle the errors
-    }, function(errorObject) {
-      console.log("Errors handled: " + errorObject.code);
-    });
-
+    }); 
     //1- get current time (military)
         //2- get train start (military)
         //3- subtract train start from current time to get the difference  (not sure what to do about minutes)

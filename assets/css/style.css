@@ -44,3 +44,6 @@ table {
     padding: 15px;
     margin-right: 20px;
 }
+h3.panel-title {
+    font-weight: bolder;
+}

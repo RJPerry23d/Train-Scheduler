@@ -75,7 +75,7 @@
 
     });
     // Firebase watcher + initial loader HINT: .on("value")
-    database.ref().on("value", function(snapshot) {
+    database.ref().on("child_added", function(snapshot) {
       var trainName;
       var destination;
       var firstArrival;
