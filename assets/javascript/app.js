@@ -13,13 +13,16 @@
 
     firebase.initializeApp(config);
 
+
     var database = firebase.database();
 
     // Initial Values
-    var trainName = "";
-    var destination = "";
-    var firstArrival = "";
-    var arrivalFrequency = "";
+    var initTrainName = "";
+    var initDestination = "";
+    var initFirstArrival = "";
+    var initArrivalFrequency = "";
+    var initTMinutesTillTrain = "";
+    var initNextTr = "";
 
     // Capture Button Click
     $("#add-train").on("click", function() {
@@ -33,31 +36,100 @@
       destination = $("#destination-input").val().trim();
       firstArrival = $("#trainTime-input").val().trim();
       arrivalFrequency = $("#frequency-input").val().trim();
+      nextTr = $("#next-arrival-display").val();
+      tMinutesTillTrain = $("#minutes-until-display").val()
 
       database.ref().set({
         trainName: trainName,
         destination: destination,
         firstArrival: firstArrival,
-        arrivalFrequency: arrivalFrequency
+        arrivalFrequency: arrivalFrequency,
+        nextTr: nextTr,
+        tMinutesTillTrain: tMinutesTillTrain
       });
+      function trainSchedule() {
+        // Assumptions
+      
+          var tFrequency = arrivalFrequency;
+
+          // Time is 3:30 AM
+          var firstTime = firstArrival;
+
+          // First Time (pushed back 1 year to make sure it comes before current time)
+          var firstTimeConverted = moment(firstTime, "hh:mm").subtract(1, "years");
+          console.log(firstTimeConverted);
+
+          // Current Time
+          var currentTime = moment();
+          console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+
+          // Difference between the times
+          var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+          console.log("DIFFERENCE IN TIME: " + diffTime);
+
+          // Time apart (remainder)
+          var tRemainder = diffTime % tFrequency;
+          console.log(tRemainder);
+
+          // Minute Until Train
+          var tMinutesTillTrain = tFrequency - tRemainder;
+          console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+          return(tMinutesTillTrain);
+
+          // Next Train
+          var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+          console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+          nextTrain =nextTr;
+          console.log(nextTr);
+
+    }
 
     });
 
     // Firebase watcher + initial loader HINT: .on("value")
     database.ref().on("value", function(snapshot) {
+    	var trainName;
+    	var destination;
+    	var firstArrival;
+    	var arrivalFrequency;
+      var tMinutesTillTrain;
+      var nextTr;
 
       // Log everything that's coming out of snapshot
       console.log(snapshot.val());
-      console.log(snapshot.val().trainName);
-      console.log(snapshot.val().destination);
-      console.log(snapshot.val().firstArrival);
-      console.log(snapshot.val().arrivalFrequency);
+      if (snapshot.val() == null) {
+      	trainName = initTrainName;
+      	destination = initDestination;
+      	firstArrival = initFirstArrival;
+      	arrivalFrequency = initArrivalFrequency;
+        tMinutesTillTrain = initTMinutesTillTrain;
+        nextTr = initNextTrain;
+      }
+      else {
+      	trainName = snapshot.val().trainName;
+      	destination = snapshot.val().destination;
+      	firstArrival = snapshot.val().firstArrival;
+      	arrivalFrequency = snapshot.val().arrivalFrequency;
+        tMinutesTillTrain = snapshot.val().tMinutesTillTrain;
+        nextTr = snapshot.val().nextTrain; 
+
+      }
+
+      
+      // console.log(snapshot.val().trainName);
+      // console.log(snapshot.val().destination);
+      // console.log(snapshot.val().firstArrival);
+      // console.log(snapshot.val().arrivalFrequency);
 
       // Change the HTML to reflect
-      $("#name-display").text(snapshot.val().trainName);
-      $("#destination-display").text(snapshot.val().destination);
-      $("#arrival-display").text(snapshot.val().firstArrival);
-      $("#frequency-display").text(snapshot.val().arrivalFrequency);
+      $("#name-display").text(trainName);
+      $("#destination-display").text(destination);
+      //$("#arrival-display").text(firstArrival);
+      $("#frequency-display").text(arrivalFrequency);
+      $("#next-arrival-display").text(nextTr);
+      console.log(nextTr);
+      $("#minutes-until-display").text(tMinutesTillTrain);
+      console.log(tMinutesTillTrain);
 
 
 
@@ -65,3 +137,10 @@
     }, function(errorObject) {
       console.log("Errors handled: " + errorObject.code);
     });
+
+    //1- get current time (military)
+        //2- get train start (military)
+        //3- subtract train start from current time to get the difference  (not sure what to do about minutes)
+        //4- multiply the difference * 60 to get the total number of minutes (totalMinutes) 
+        //5- divide totalMinutes by the train frequency (minuteDif)
+        //6- subtract Math.floor(minuteDif) from 60 to get Minutes Away
