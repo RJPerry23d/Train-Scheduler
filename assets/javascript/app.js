@@ -64,7 +64,6 @@ var firstTime = firstArrival;
 
 // First Time (pushed back 1 year to make sure it comes before current time)
 var firstTimeConverted = moment(firstTime, "hh:mm").subtract(1, "years");
-console.log(firstTimeConverted);
 
 // Current Time
 var currentTime = moment();
