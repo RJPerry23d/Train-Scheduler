@@ -1,27 +1,28 @@
+/*general settings********************/
 body {
 	background-color: black;
 }
+
+table {
+    margin: 10px;
+}
+
+/*panel settings**********************/
+
 .panel-heading {
-	color: silver;
+    color: silver;
 }
 .panel-default>.panel-heading {
-	background: url("../images/brushedsteel4.jpg");
+    background: url("../images/brushedsteel4.jpg");
     color: #333;
     background-color: silver;
     border-color: #ddd;
-}
-
-.form-group input {
-	color: green;
-	background-color: black;
-	border: darkgray 2px solid;
 }
 .jumbotron.board-display {
     color: green;
     background-color: black;
     font-family: 'Share Tech Mono', monospace;
 }
-
 .panel.panel-default {
 	font-family: 'Share Tech Mono', monospace;
     color: green;
@@ -32,18 +33,20 @@ body {
 	background-color: black;
 	color: green;
 }
-.btn-info {
-    color: #fff;
-    background-color: green;
-    border-color: green;
-}
-table {
-	margin: 10px;
-}
 .panel-body {
     padding: 15px;
     margin-right: 20px;
 }
 h3.panel-title {
     font-weight: bolder;
+}
+.form-group input {
+    color: green;
+    background-color: black;
+    border: darkgray 2px solid;
+}
+.btn-info {
+    color: #fff;
+    background-color: green;
+    border-color: green;
 }
