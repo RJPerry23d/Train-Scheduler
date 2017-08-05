@@ -1,0 +1,36 @@
+body {
+	background-color: black;
+}
+.panel-heading {
+	color: silver;
+}
+.panel-default>.panel-heading {
+	background: url("../images/brushedsteel4.jpg");
+    color: #333;
+    background-color: silver;
+    border-color: #ddd;
+}
+.jumbotron.board-display {
+    color: green;
+    background-color: black;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.panel.panel-default {
+	font-family: 'Share Tech Mono', monospace;
+    color: green;
+    background-color: black;
+}
+.board-display {
+	font-family: 'Share Tech Mono', monospace;
+	background-color: black;
+	color: green;
+}
+.btn-info {
+    color: #fff;
+    background-color: green;
+    border-color: green;
+}
+table {
+	margin: 10px;
+}
