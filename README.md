@@ -7,11 +7,11 @@ In this assignment, you'll create a train schedule application that incorporates
 
 ### Setup
 
-* We'll leave that up to you -- however you like. Just make sure you're using Firebase to store data, GitHub to backup your project, and GithHub Pages to host your finished site.
+* I am using Firebase to store data, GitHub to backup my project, and GithHub Pages to host my finished site.
 
 ### Instructions
 
-* Make sure that your app suits this basic spec:
+* app basic specs:
   
   * When adding trains, administrators should be able to submit the following:
     
@@ -23,8 +23,8 @@ In this assignment, you'll create a train schedule application that incorporates
     
     * Frequency -- in minutes
   
-  * Code this app to calculate when the next train will arrive; this should be relative to the current time.
+  * Coded this app to calculate when the next train will arrive; this should be relative to the current time.
   
   * Users from many different machines must be able to view same train times.
   
-  * Styling and theme are completely up to you. Get Creative!
+  RJ Perry
